@@ -1,0 +1,56 @@
+body {
+  background-color: #404040;
+  font-size: 1rem;
+  color: #fff;
+}
+
+h1 {
+  margin: 2rem 0;
+  font-size: 2rem;
+}
+
+textarea {
+  all: unset;
+  width: 100%;
+  text-align: left;
+  border: 2px solid #ffffff40;
+  margin: 1rem 0;
+  resize: vertical;
+  height: 5rem;
+}
+
+textarea:active {
+  border: 2px solid #fff;
+}
+
+textarea:focus {
+  border: 2px solid #0f0;
+}
+
+.main {
+  text-align: center;
+}
+
+.textBoxs,
+.btns {
+  width: calc(100% / 2);
+  margin: 0 auto;
+}
+
+.button {
+  display: block;
+  background-color: #ffffff40;
+  border: 2px solid #ffffff40;
+  box-shadow: 0px 0px 1rem #000;
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.button:hover {
+  border: 2px solid transparent;
+}
+
+.button:active {
+  border: 2px solid #fff;
+  box-shadow: unset;
+}
