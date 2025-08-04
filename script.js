@@ -29,28 +29,29 @@ const inputText = document.getElementById('inputText');
 const outputText = document.getElementById('outputText');
 const toAowuBtn = document.getElementById('toAowu');
 const toOriginalBtn = document.getElementById('toOriginal');
+const pasteToOriginal = document.getElementById('pasteToOriginal');
 const copyResultBtn = document.getElementById('copyResult');
 const clearBtn = document.getElementById('clear');
 
 // 文本转嗷呜语
 function textToAowu(text) {
   let result = '';
-
+  
   for (let char of text) {
     // 获取字符的Unicode码点
     const codePoint = char.codePointAt(0);
     // 转换为6位16进制，并转换为大写
     const hexCode = codePoint.toString(16).toUpperCase().padStart(6, '0');
-
+    
     // 按映射规则替换每个16进制字符
     let converted = '';
     for (let hexChar of hexCode) {
       converted += charMap[hexChar] || hexChar;
     }
-
+    
     result += converted;
   }
-
+  
   // 添加前缀和后缀
   return '嗷' + result + '呜~';
 }
@@ -61,15 +62,15 @@ function aowuToText(aowu) {
   if (!aowu.startsWith('嗷') || !aowu.endsWith('呜~')) {
     return '无效的嗷呜语格式';
   }
-
+  
   const content = aowu.slice(1, -2);
   let result = '';
   let hexBuffer = '';
-
+  
   // 将每个字符转换回16进制字符
   for (let char of content) {
     hexBuffer += reverseMap[char] || char;
-
+    
     // 每6个字符一组
     if (hexBuffer.length === 6) {
       const codePoint = parseInt(hexBuffer, 16);
@@ -85,11 +86,11 @@ function aowuToText(aowu) {
       hexBuffer = '';
     }
   }
-
+  
   return result;
 }
 
-window.onload = function () {
+window.onload = function() {
   // 事件监听器
   toAowuBtn.addEventListener('click', () => {
     const text = inputText.value;
@@ -97,14 +98,25 @@ window.onload = function () {
       outputText.value = textToAowu(text);
     }
   });
-
+  
   toOriginalBtn.addEventListener('click', () => {
     const aowu = inputText.value;
     if (aowu) {
       outputText.value = aowuToText(aowu);
     }
   });
-
+  
+  pasteToOriginal.addEventListener('click', async () => {
+    try {
+      const t = await navigator.clipboard.readText();
+      inputText.value = t;
+      outputText.value = textToAowu(t);
+    } catch (e) {
+      alert('粘贴时出错：' + e);
+      console.error(e);
+    }
+  });
+  
   copyResultBtn.addEventListener('click', () => {
     if (outputText.value) {
       outputText.select();
@@ -112,11 +124,11 @@ window.onload = function () {
       alert('已复制到剪贴板！');
     }
   });
-
+  
   clearBtn.addEventListener('click', () => {
     inputText.value = '';
     outputText.value = '';
     inputText.focus();
   });
-
-  }
+  
+}
