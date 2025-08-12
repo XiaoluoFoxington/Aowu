@@ -129,11 +129,13 @@ window.onload = function() {
     }
   });
   
-  copyResultBtn.addEventListener('click', () => {
-    if (outputText.value) {
-      outputText.select();
-      document.execCommand('copy');
-      alert('已复制到剪贴板！');
+  copyResultBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(outputText.value);
+      alert('复制成功');
+    } catch (e) {
+      alert('复制时出错：' + e);
+      console.error(e);
     }
   });
   
