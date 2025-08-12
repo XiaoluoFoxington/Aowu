@@ -110,7 +110,7 @@ window.onload = function() {
     try {
       const t = await navigator.clipboard.readText();
       inputText.value = t;
-      outputText.value = textToAowu(t);
+      outputText.value = aowuToText(t);
     } catch (e) {
       alert('粘贴时出错：' + e);
       console.error(e);
