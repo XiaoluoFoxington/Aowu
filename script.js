@@ -28,6 +28,7 @@ for (const [key, value] of Object.entries(charMap)) {
 const inputText = document.getElementById('inputText');
 const outputText = document.getElementById('outputText');
 const toAowuBtn = document.getElementById('toAowu');
+const pasteToAowu = document.getElementById('pasteToAowu');
 const toOriginalBtn = document.getElementById('toOriginal');
 const pasteToOriginal = document.getElementById('pasteToOriginal');
 const copyResultBtn = document.getElementById('copyResult');
@@ -98,6 +99,17 @@ window.onload = function() {
       outputText.value = textToAowu(text);
     }
   });
+
+  pasteToAowu.addEventListener('click', async () => {
+    try {
+      const t = await navigator.clipboard.readText();
+      inputText.value = t;
+      outputText.value = textToAowu(t);
+    } catch (e) {
+      alert('粘贴时出错：' + e);
+      console.error(e);
+    }
+  })
   
   toOriginalBtn.addEventListener('click', () => {
     const aowu = inputText.value;
