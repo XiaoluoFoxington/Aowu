@@ -37,6 +37,10 @@ textarea:focus {
   margin: 0 auto;
 }
 
+.btns {
+  margin: 3rem auto;
+}
+
 .button {
   display: block;
   background-color: #ffffff40;
